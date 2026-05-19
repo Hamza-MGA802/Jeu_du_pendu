@@ -187,10 +187,14 @@ def donner_indice(mot_normalise: str, lettres_trouvees: set[str]) -> str:
         Une lettre indice (absente de lettres_trouvees), ou chaîne vide
         si toutes les lettres sont déjà trouvées.
     """
-    lettres_restantes = [l for l in set(mot_normalise) if l not in lettres_trouvees]
-    if lettres_restantes:
-        import random
-        return random.choice(lettres_restantes)
+    import random
+    import string
+    lettres_pas_dans_mot = [
+        l for l in string.ascii_lowercase
+        if l not in mot_normalise and l not in lettres_trouvees
+    ]
+    if lettres_pas_dans_mot:
+        return random.choice(lettres_pas_dans_mot)
     return ""
 
 
